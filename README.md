@@ -3,7 +3,8 @@
 A supervised machine learning project that predicts whether a telecommunications customer is likely to leave the company using the IBM Telco Customer Churn dataset.
 
 **Project Repository:** [sajjadabdullah90/customer-churn-prediction](https://github.com/sajjadabdullah90/customer-churn-prediction)  
-**Main Notebook:** [Customer Churn Prediction Notebook](notebook/Customer_Churn_Prediction.ipynb)
+**Main Notebook:** [Customer Churn Prediction Notebook](notebook/Customer_Churn_Prediction.ipynb)  
+**Interactive Dashboard:** Streamlit application (`app.py`)
 
 ---
 
@@ -55,9 +56,9 @@ The dataset has an imbalanced target distribution:
 | No | 5,174 | 73.46% |
 | Yes | 1,869 | 26.54% |
 
-**Dataset file expected by the notebook:** `Telco-Customer-Churn.csv`
+**Dataset file:** [`dataset/Telco-Customer-Churn.csv`](dataset/Telco-Customer-Churn.csv)
 
-Place the CSV file in the notebook's working directory before running the notebook.
+The dashboard reads the CSV directly from the repository's `dataset/` directory. When running the notebook, make sure its working directory or CSV path points to this file.
 
 ## 5. Workflow
 
@@ -205,7 +206,37 @@ False negatives are particularly important because they represent customers who 
 
 5. Open `notebook/Customer_Churn_Prediction.ipynb` and run the cells in order.
 
-## 14. Future Improvements
+## 14. Interactive Analytics Dashboard
+
+The repository also includes a Streamlit web application that presents the project analysis and model results in an interactive interface.
+
+### Dashboard sections
+
+- **Overview:** customer count, observed churn rate, test accuracy, churn recall, and model comparison.
+- **Customer Analytics:** churn rates by contract, internet service, payment method, and support services; tenure and billing distributions; numerical correlation heatmap.
+- **Predict Churn:** enter customer and billing details to receive a predicted class, churn probability, and illustrative risk band.
+- **Model Evaluation:** accuracy, balanced accuracy, churn precision, recall, F1-score, ROC-AUC, five-fold cross-validation, confusion matrix, specificity, classification report, and ROC curve.
+- **Error Analysis:** false-positive and false-negative counts, records, and downloadable error data.
+- **Data Explorer:** filter customer records and export the selected data.
+
+### Run the dashboard
+
+1. Create and activate a virtual environment (recommended).
+2. Install project dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Start the application from the repository root:
+
+   ```bash
+   streamlit run app.py
+   ```
+
+The application trains the baseline, Logistic Regression, and Random Forest pipelines on startup using the same stratified 80/20 split and five-fold cross-validation approach as the notebook. The test metrics shown by the dashboard are calculated from its own run; small differences can occur across library versions.
+
+## 15. Future Improvements
 
 - Improve recall for the churn class through decision-threshold tuning.
 - Experiment with class-weighting and resampling techniques.
@@ -214,7 +245,7 @@ False negatives are particularly important because they represent customers who 
 - Use precision-recall curves and additional metrics to guide model selection.
 - Validate performance on new or unseen customer data.
 
-## 15. Conclusion
+## 16. Conclusion
 
 This project demonstrates an end-to-end machine learning workflow for telecommunications customer churn prediction, from exploratory data analysis and feature engineering to model evaluation and error analysis.
 
