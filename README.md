@@ -208,33 +208,43 @@ False negatives are particularly important because they represent customers who 
 
 ## 14. Interactive Analytics Dashboard
 
-The repository also includes a Streamlit web application that presents the project analysis and model results in an interactive interface.
+The Streamlit dashboard is a visualization and inference layer over the notebook outputs. **The notebook is the single source of truth for preprocessing, training, cross-validation, and evaluation.** The dashboard does not retrain models or independently recreate the evaluation results.
 
 ### Dashboard sections
 
-- **Overview:** customer count, observed churn rate, test accuracy, churn recall, and model comparison.
-- **Customer Analytics:** churn rates by contract, internet service, payment method, and support services; tenure and billing distributions; numerical correlation heatmap.
-- **Predict Churn:** enter customer and billing details to receive a predicted class, churn probability, and illustrative risk band.
-- **Model Evaluation:** accuracy, balanced accuracy, churn precision, recall, F1-score, ROC-AUC, five-fold cross-validation, confusion matrix, specificity, classification report, and ROC curve.
-- **Error Analysis:** false-positive and false-negative counts, records, and downloadable error data.
-- **Data Explorer:** filter customer records and export the selected data.
+- **Executive Overview:** customer base, observed churn rate, selected-model accuracy and churn recall, retention mix, and model scorecard.
+- **Customer Insights:** churn rates by customer segment, tenure and billing distributions, and numerical feature correlations.
+- **Churn Predictor:** use the exact fitted Logistic Regression or Random Forest pipeline exported by the notebook.
+- **Model Performance:** notebook test metrics, cross-validation results, confusion matrices, classification reports, and ROC curves.
+- **Error Analysis:** inspect false positives and false negatives from the notebook's selected Logistic Regression model.
+- **Data Explorer:** filter the original customer records and export a selected segment.
 
-### Run the dashboard
+### Run the notebook and export artifacts first
 
-1. Create and activate a virtual environment (recommended).
-2. Install project dependencies:
+1. Install the dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Start the application from the repository root:
+2. Open a terminal in the repository's `dataset/` directory (the notebook reads `Telco-Customer-Churn.csv` relative to its working directory):
 
    ```bash
-   streamlit run app.py
+   cd dataset
+   jupyter notebook ../notebook/Customer_Churn_Prediction.ipynb
    ```
 
-The application trains the baseline, Logistic Regression, and Random Forest pipelines on startup using the same stratified 80/20 split and five-fold cross-validation approach as the notebook. The test metrics shown by the dashboard are calculated from its own run; small differences can occur across library versions.
+3. Run every notebook cell from top to bottom, including **Section 20: Exporting Results for the Interactive Dashboard**. This creates the `artifacts/` directory at the repository root, containing the fitted model pipelines and evaluation outputs.
+
+### Start the dashboard
+
+From the repository root, run:
+
+```bash
+streamlit run app.py
+```
+
+If the dashboard reports missing artifacts, complete Section 20 in the notebook first and restart Streamlit. The app loads saved results and models; it does not repeat training or cross-validation.
 
 ## 15. Future Improvements
 
