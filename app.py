@@ -311,7 +311,7 @@ elif page == "Model Performance":
 # ---------- Error analysis ----------
 elif page == "Error Analysis":
     hero("Understand where predictions go wrong", "Inspect false positives and false negatives from the notebook's selected Logistic Regression model.", "MODEL GOVERNANCE / ERROR REVIEW")
-    fp=int((errors["Actual Churn"]=="No").sum() and ((errors["Actual Churn"]=="No") & (errors["Predicted Churn"]=="Yes")).sum())
+    fp=int(((errors["Actual Churn"]=="No") & (errors["Predicted Churn"]=="Yes")).sum())
     fn=int(((errors["Actual Churn"]=="Yes") & (errors["Predicted Churn"]=="No")).sum())
     cols=st.columns(3)
     for col,item in zip(cols,[("TOTAL INCORRECT",f"{len(errors):,}","Held-out test errors"),("FALSE POSITIVES",f"{fp:,}","Predicted churn, actually stayed"),("FALSE NEGATIVES",f"{fn:,}","Predicted stay, actually churned")]):
