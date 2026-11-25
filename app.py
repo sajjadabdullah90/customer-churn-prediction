@@ -173,7 +173,10 @@ elif page == "Customer Insights":
     a,b,c = st.columns(3)
     with a: metric("AVERAGE TENURE",f"{raw.tenure.mean():.1f} mo","Across all customers")
     with b: metric("MONTHLY CHARGES",f"${raw.MonthlyCharges.mean():.2f}","Average per customer")
-    with c: metric("AVERAGE SERVICES",f"{raw.drop(columns=['customerID','Churn'],errors='ignore').shape[1]} fields","Source dataset attributes")
+    with c:
+            service_cols=["PhoneService","MultipleLines","OnlineSecurity","OnlineBackup","DeviceProtection","TechSupport","StreamingTV","StreamingMovies"]
+            avg_services=raw[service_cols].eq("Yes").sum(axis=1).mean()
+            metric("AVG SERVICES",f"{avg_services:.1f}","Per customer")
     t1,t2,t3 = st.tabs(["Churn drivers","Customer behaviour","Feature relationships"])
     with t1:
         feature = st.selectbox("Choose a customer attribute",["Contract","InternetService","PaymentMethod","OnlineSecurity","TechSupport","OnlineBackup","DeviceProtection","PaperlessBilling","Partner","Dependents","MultipleLines","StreamingTV","StreamingMovies"])
