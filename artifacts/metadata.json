@@ -1,0 +1,29 @@
+{
+  "target": "Churn",
+  "positive_class": "Yes",
+  "feature_columns": [
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "TotalServices",
+    "TenureGroup"
+  ],
+  "training_rows": 5634,
+  "test_rows": 1409,
+  "random_state": 42,
+  "selected_model": "Logistic Regression"
+}

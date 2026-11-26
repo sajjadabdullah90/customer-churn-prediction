@@ -1,0 +1,4 @@
+Model,Mean CV Accuracy,Standard Deviation
+Baseline,73.46,0.01
+Logistic Regression,80.32,1.26
+Random Forest,79.0,1.08
